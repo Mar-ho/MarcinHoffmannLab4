@@ -202,7 +202,7 @@ namespace MarcinHoffmannLab4
                 Console.WriteLine("Enter the second number.");
                 number2 = Convert.ToDecimal(Console.ReadLine());
                 SimpleCalculation(number, sign, number2);
-                Console.WriteLine("Hit ESC to quit; any key to repeat.");
+                Console.WriteLine("Hit ESC to quit; any other key to repeat.");
                 
                 if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                     break;
