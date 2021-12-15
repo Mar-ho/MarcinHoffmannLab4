@@ -58,10 +58,13 @@ namespace MarcinHoffmannLab4
         /// <returns>Wysokość podatku</returns>
         static decimal CalculateTax(decimal income)
         {
+                        
             if (income < 0)
             {
                 return -1;
             }
+
+            // tax calculation
 
             decimal tax = 0.17m * income;
             
@@ -70,12 +73,39 @@ namespace MarcinHoffmannLab4
                 tax += ((income - 85528) * 0.15m);
             }
 
-           if (income > 1000000)
+            if (income > 1000000)
             {
                 tax += ((income - 1000000) * 0.04m);
             }
 
-            return tax;
+            
+            // tax-reducing amount calculation
+
+            decimal taxReducingAmount = 0;
+
+           if (income <= 8000)
+            {
+                tax = 0;
+            }
+           else if (income <= 13000)
+            {
+                taxReducingAmount = 1360m - (834.88m * (income - 8000m) / 5000m);
+            }
+            else if (income <= 85528)
+            {
+                taxReducingAmount = 525.12m;
+            }
+            else if (income <= 127000)
+            {
+                taxReducingAmount = 525.12m - (525.12m * (income - 85528) / 41472m);
+            }
+
+            tax -= taxReducingAmount;
+
+            return Math.Round(tax, MidpointRounding.AwayFromZero);
+
+
+
         }
 
 
@@ -135,8 +165,11 @@ namespace MarcinHoffmannLab4
             Console.WriteLine("\nTest funkcji CalculateTax\n");
 
             Console.WriteLine(CalculateTax(-2.5m));
+            Console.WriteLine(CalculateTax(7900));
+            Console.WriteLine(CalculateTax(12000));
             Console.WriteLine(CalculateTax(50000));
             Console.WriteLine(CalculateTax(85528));
+            Console.WriteLine(CalculateTax(125000));
             Console.WriteLine(CalculateTax(200000));
             Console.WriteLine(CalculateTax(500000));
             Console.WriteLine(CalculateTax(1000000));
